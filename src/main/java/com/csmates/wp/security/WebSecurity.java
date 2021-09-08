@@ -3,7 +3,6 @@ package com.csmates.wp.security;
 import com.csmates.wp.security.filters.JWTAuthenticationFilter;
 import com.csmates.wp.security.filters.JWTAuthorizationFilter;
 import com.csmates.wp.service.UserDetailsServiceImpl;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

@@ -2,13 +2,10 @@ package com.csmates.wp.controller;
 
 import com.csmates.wp.domain.User;
 import com.csmates.wp.repository.UserRepository;
-import com.csmates.wp.service.UserService;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/users")
@@ -21,8 +18,11 @@ public class UserController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    @PostMapping("/sign-up")
+    @PostMapping("/register")
     public void signUp(@RequestBody User user) {
+        // have no field login on front
+        // made login = username by default
+        user.setLogin(user.getUsername());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }

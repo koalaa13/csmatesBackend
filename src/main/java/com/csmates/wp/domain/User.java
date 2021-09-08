@@ -36,7 +36,7 @@ public class User {
     private String password;
 
     @ManyToOne
-    @JoinColumn(name = "team_id", nullable = false)
+    @JoinColumn(name = "team_id")
     private Team team;
 
     public User(String login, String username, String password) {

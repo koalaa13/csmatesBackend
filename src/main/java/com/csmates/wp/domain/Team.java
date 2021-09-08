@@ -16,7 +16,7 @@ public class Team {
     private Long id;
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
-    @OrderBy("creationTime desc ")
+    @OrderBy("creationTime desc")
     private List<User> players;
 
     @CreationTimestamp
