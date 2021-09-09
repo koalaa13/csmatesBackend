@@ -16,5 +16,9 @@ public class SecurityConstants {
     public static String TOKEN_PREFIX = "Bearer ";
 
     // url for sign up
-    public static String SIGN_UP_URL = "/users/sign-up";
+    public static String SIGN_UP_URL = "/users/register";
+
+    // add this header to response
+    // to make header Authorization accessible by frontend
+    public static String CORS_TOKEN_HEADER_ACCESSIBLE = "Access-Control-Expose-Headers";
 }

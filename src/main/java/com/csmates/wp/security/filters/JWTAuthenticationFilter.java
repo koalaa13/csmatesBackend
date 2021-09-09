@@ -58,5 +58,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(Algorithm.HMAC512(SECRET_JWT.getBytes(StandardCharsets.UTF_8)));
         response.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
+        //Add this header to allow frontend see a header 'authorization'
+        response.addHeader(CORS_TOKEN_HEADER_ACCESSIBLE, HEADER_STRING);
     }
 }
