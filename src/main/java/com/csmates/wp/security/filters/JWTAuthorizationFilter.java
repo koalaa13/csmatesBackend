@@ -48,7 +48,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         if (token != null) {
             String user = JWT.require(jwtConfig.getAlgorithmForSigning())
                     .build()
-                    .verify(token.replace(jwtConfig.getTokenPrefix(), ""))
+                    .verify(token.substring(jwtConfig.getTokenPrefix().length()))
                     .getSubject();
             if (user != null) {
                 return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
