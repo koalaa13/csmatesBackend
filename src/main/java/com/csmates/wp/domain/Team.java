@@ -1,7 +1,6 @@
 package com.csmates.wp.domain;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.core.annotation.Order;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -17,7 +16,7 @@ public class Team {
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
     @OrderBy("creationTime desc")
-    private List<User> players;
+    private List<AppUser> players;
 
     @CreationTimestamp
     private Date creationTime;

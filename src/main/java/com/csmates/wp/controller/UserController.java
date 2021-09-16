@@ -1,6 +1,6 @@
 package com.csmates.wp.controller;
 
-import com.csmates.wp.domain.User;
+import com.csmates.wp.domain.AppUser;
 import com.csmates.wp.repository.UserRepository;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,12 +20,12 @@ public class UserController {
     }
 
     @GetMapping("")
-    public List<User> getAllUsers() {
+    public List<AppUser> getAllUsers() {
         return userRepository.findAll();
     }
 
     @GetMapping("/{userId}")
-    public User getUser(@PathVariable(name = "userId") Long id) {
+    public AppUser getUser(@PathVariable(name = "userId") Long id) {
         return userRepository.findById(id).orElseThrow(() ->
                 new UsernameNotFoundException(
                         String.format("Username with id: %s not found", id)
@@ -34,7 +34,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public void signUp(@RequestBody User user) {
+    public void signUp(@RequestBody AppUser user) {
         // have no field login on front
         // made login = username by default
         user.setLogin(user.getUsername());

@@ -2,7 +2,7 @@ package com.csmates.wp.security.filters;
 
 import com.auth0.jwt.JWT;
 import com.csmates.wp.config.JwtConfig;
-import com.csmates.wp.domain.User;
+import com.csmates.wp.domain.AppUser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,7 +12,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -37,8 +36,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException {
         try {
-            User credentials = new ObjectMapper()
-                    .readValue(request.getInputStream(), User.class);
+            AppUser credentials = new ObjectMapper()
+                    .readValue(request.getInputStream(), AppUser.class);
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(

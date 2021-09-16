@@ -1,6 +1,6 @@
 package com.csmates.wp.service;
 
-import com.csmates.wp.domain.User;
+import com.csmates.wp.domain.AppUser;
 import com.csmates.wp.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> findAll() {
+    public List<AppUser> findAll() {
         return userRepository.findAll();
     }
 }

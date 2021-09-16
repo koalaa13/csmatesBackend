@@ -1,7 +1,8 @@
 package com.csmates.wp.service;
 
-import com.csmates.wp.domain.User;
+import com.csmates.wp.domain.AppUser;
 import com.csmates.wp.repository.UserRepository;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,11 +20,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+        AppUser user = userRepository.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException(username);
         }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(),
+        return new User(user.getUsername(),
                 user.getPassword(),
                 Collections.emptyList());
     }

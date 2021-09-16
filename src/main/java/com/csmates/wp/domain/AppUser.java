@@ -11,7 +11,7 @@ import java.sql.Date;
 @SuppressWarnings({"unused", "WeakerAccess"})
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "login"))
-public class User {
+public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO) // should have IDENTITY here but it does not work
     private Long id;
@@ -39,13 +39,13 @@ public class User {
     @JoinColumn(name = "team_id")
     private Team team;
 
-    public User(String login, String username, String password) {
+    public AppUser(String login, String username, String password) {
         this.login = login;
         this.username = username;
         this.password = password;
     }
 
-    public User() {
+    public AppUser() {
     }
 
     public String getUsername() {
