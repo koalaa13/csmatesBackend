@@ -1,0 +1,28 @@
+{
+  "properties": [
+    {
+      "name": "application.jwt.expirationTime",
+      "type": "java.lang.Long",
+      "description": "Expiration time for jwt.",
+      "sourceType": "com.csmates.wp.config.JwtConfig"
+    },
+    {
+      "name": "application.jwt.secretJwt",
+      "type": "java.lang.String",
+      "description": "Secret key to generate jwt.",
+      "sourceType": "com.csmates.wp.config.JwtConfig"
+    },
+    {
+      "name": "application.jwt.tokenPrefix",
+      "type": "java.lang.String",
+      "description": "Prefix to add in the begging of jwt when add header Authorization.",
+      "sourceType": "com.csmates.wp.config.JwtConfig"
+    },
+    {
+      "name": "application.urls.signUpUrl",
+      "type": "java.lang.String",
+      "description": "Url to sign up.",
+      "sourceType": "com.csmates.wp.config.DefaultUrlsConfig"
+    }
+  ]
+}

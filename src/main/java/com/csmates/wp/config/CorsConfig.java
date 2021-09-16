@@ -1,4 +1,4 @@
-package com.csmates.wp.security;
+package com.csmates.wp.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
