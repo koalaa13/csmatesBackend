@@ -23,6 +23,12 @@
       "type": "java.lang.String",
       "description": "Url to sign up.",
       "sourceType": "com.csmates.wp.config.DefaultUrlsConfig"
+    },
+    {
+      "name": "application.confirmation.tokenExpirationTime",
+      "type": "java.lang.Long",
+      "description": "Expiration time for confirmation token.",
+      "sourceType": "com.csmates.wp.config.ConfirmationTokenConfig"
     }
   ]
 }

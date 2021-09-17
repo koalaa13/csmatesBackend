@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -56,7 +57,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             Authentication authResult) {
         String token = JWT.create()
                 //saving username in subject part of jwt
-                .withSubject(((org.springframework.security.core.userdetails.User) authResult.getPrincipal()).getUsername())
+                .withSubject(((User) authResult.getPrincipal()).getUsername())
                 //set up time of live of token
                 .withExpiresAt(new Date(System.currentTimeMillis() + jwtConfig.getExpirationTime()))
                 .sign(jwtConfig.getAlgorithmForSigning());

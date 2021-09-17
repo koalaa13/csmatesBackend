@@ -1,17 +1,20 @@
 package com.csmates.wp.domain;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Date;
+import java.util.Collection;
+import java.util.Collections;
 
-@SuppressWarnings({"unused", "WeakerAccess"})
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = "login"))
-public class AppUser {
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+public class AppUser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO) // should have IDENTITY here but it does not work
     private Long id;
@@ -19,7 +22,7 @@ public class AppUser {
     @NotNull
     @NotEmpty
     @Size(min = 2, max = 24)
-    private String login;
+    private String email;
 
     @CreationTimestamp
     private Date creationTime;
@@ -39,17 +42,69 @@ public class AppUser {
     @JoinColumn(name = "team_id")
     private Team team;
 
-    public AppUser(String login, String username, String password) {
-        this.login = login;
-        this.username = username;
-        this.password = password;
-    }
+    private Boolean locked = false;
+    private Boolean enabled = false;
 
     public AppUser() {
     }
 
+    public AppUser(String email, String username, String password) {
+        this.email = email;
+        this.username = username;
+        this.password = password;
+    }
+
     public String getUsername() {
         return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return !locked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.emptyList();
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public Boolean getLocked() {
+        return locked;
+    }
+
+    public void setLocked(Boolean locked) {
+        this.locked = locked;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public void setUsername(String username) {
@@ -80,11 +135,11 @@ public class AppUser {
         return id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getEmail() {
+        return email;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setEmail(String login) {
+        this.email = login;
     }
 }

@@ -13,6 +13,15 @@ public class DefaultUrlsConfig {
     }
 
     private String signUpUrl;
+    private String emailConfirmationUrl;
+
+    public String getEmailConfirmationUrl() {
+        return emailConfirmationUrl;
+    }
+
+    public void setEmailConfirmationUrl(String emailConfirmationUrl) {
+        this.emailConfirmationUrl = emailConfirmationUrl;
+    }
 
     public String getSignUpUrl() {
         return signUpUrl;
