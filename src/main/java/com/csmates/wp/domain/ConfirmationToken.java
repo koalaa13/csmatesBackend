@@ -1,7 +1,6 @@
 package com.csmates.wp.domain;
 
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -20,13 +19,20 @@ public class ConfirmationToken {
     @Column(nullable = false)
     private String token;
 
-    @CreationTimestamp
+    @Column(nullable = false)
     private LocalDateTime creationTime;
 
     @Column(nullable = false)
     private LocalDateTime expiresAt;
 
     private LocalDateTime confirmedAt;
+
+    @ManyToOne
+    @JoinColumn(
+            nullable = false,
+            name = "app_user_id"
+    )
+    private AppUser appUser;
 
     public ConfirmationToken(String token, LocalDateTime creationTime, LocalDateTime expiresAt,
                              AppUser appUser) {
@@ -35,13 +41,6 @@ public class ConfirmationToken {
         this.expiresAt = expiresAt;
         this.appUser = appUser;
     }
-
-    @ManyToOne
-    @JoinColumn(
-            nullable = false,
-            name = "app_user_id"
-    )
-    private AppUser appUser;
 
     public String getToken() {
         return token;

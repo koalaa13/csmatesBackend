@@ -39,7 +39,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, defaultUrlsConfig.getSignUpUrl()).permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v*/registration/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
