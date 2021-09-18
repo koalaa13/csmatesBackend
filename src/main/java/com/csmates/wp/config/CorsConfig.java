@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
-// ENABLE CORS FOR NOW
+// ENABLE CORS FOR FRONTEND FOR NOW
 // TODO figure out how to set up cors
 @Configuration
 public class CorsConfig {
@@ -17,7 +17,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedMethods("GET", "POST");
+                        .allowedOrigins("http://localhost:8080");
             }
         };
     }
