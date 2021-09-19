@@ -5,6 +5,7 @@ import com.csmates.wp.credentials.RegistrationRequest;
 import com.csmates.wp.domain.AppUser;
 import com.csmates.wp.domain.ConfirmationToken;
 import com.csmates.wp.email.EmailSender;
+import com.csmates.wp.exceptions.InvalidEmailException;
 import com.csmates.wp.validators.EmailValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class RegistrationService {
 
     public String register(RegistrationRequest request) {
         if (!emailValidator.test(request.getEmail())) {
-            throw new IllegalStateException("Email is not valid");
+            throw new InvalidEmailException("Email is not valid");
         }
         String token = userService.registerUser(
                 new AppUser(request.getEmail(),

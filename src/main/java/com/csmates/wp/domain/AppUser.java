@@ -5,8 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.util.Collection;
@@ -19,8 +18,7 @@ public class AppUser implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO) // should have IDENTITY here but it does not work
     private Long id;
 
-    @NotNull
-    @NotEmpty
+    @NotBlank(message = "Email is mandatory")
     @Size(min = 2, max = 24)
     private String email;
 
@@ -28,13 +26,11 @@ public class AppUser implements UserDetails {
     private Date creationTime;
 
     // aka nickname
-    @NotNull
-    @NotEmpty
+    @NotBlank(message = "Username is mandatory")
     @Size(min = 2, max = 24)
     private String username;
 
-    @NotNull
-    @NotEmpty
+    @NotBlank(message = "Password is mandatory")
     @Size(min = 2, max = 24)
     private String password;
 
