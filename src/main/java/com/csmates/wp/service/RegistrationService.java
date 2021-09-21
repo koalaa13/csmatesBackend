@@ -5,7 +5,8 @@ import com.csmates.wp.credentials.RegistrationRequest;
 import com.csmates.wp.domain.AppUser;
 import com.csmates.wp.domain.ConfirmationToken;
 import com.csmates.wp.email.EmailSender;
-import com.csmates.wp.exceptions.InvalidEmailException;
+import com.csmates.wp.exceptions.EmailException;
+import com.csmates.wp.exceptions.EntityExpiredException;
 import com.csmates.wp.validators.EmailValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class RegistrationService {
 
     public String register(RegistrationRequest request) {
         if (!emailValidator.test(request.getEmail())) {
-            throw new InvalidEmailException("Email is not valid");
+            throw new EmailException("Email is not valid");
         }
         String token = userService.registerUser(
                 new AppUser(request.getEmail(),
@@ -47,13 +48,13 @@ public class RegistrationService {
                         new IllegalStateException("Token not found"));
 
         if (confirmationToken.getConfirmedAt() != null) { // token already confirmed
-            throw new IllegalStateException("Email already confirmed");
+            throw new EmailException("Email already confirmed");
         }
 
         LocalDateTime expiredAt = confirmationToken.getExpiresAt();
 
         if (expiredAt.isBefore(LocalDateTime.now())) {
-            throw new IllegalStateException("Token expired");
+            throw new EntityExpiredException("Email confirmation token");
         }
 
         confirmationTokenService.setConfirmedAtNow(token);

@@ -3,6 +3,7 @@ package com.csmates.wp.security.filters;
 import com.auth0.jwt.JWT;
 import com.csmates.wp.config.JwtConfig;
 import com.csmates.wp.domain.AppUser;
+import com.csmates.wp.exceptions.ServerException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -45,7 +46,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                             credentials.getPassword(),
                             new ArrayList<>()));
         } catch (IOException e) {
-            throw new RuntimeException("Can't get inputStream from request.", e);
+            throw new ServerException("Can't get inputStream from request.", e);
         }
     }
 

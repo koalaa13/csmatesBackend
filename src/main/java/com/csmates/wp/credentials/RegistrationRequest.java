@@ -12,10 +12,10 @@ import javax.validation.constraints.NotBlank;
 @EqualsAndHashCode
 @ToString
 public class RegistrationRequest {
-    @NotBlank(message = "Username for registration is mandatory")
+    @NotBlank(message = "Username for registration is mandatory and can not be null or empty")
     private final String username;
-    @NotBlank(message = "Email for registration is mandatory")
+    @NotBlank(message = "Email for registration is mandatory and can not be null or empty")
     private final String email;
-    @NotBlank(message = "Password for registration is mandatory")
+    @NotBlank(message = "Password for registration is mandatory and can not be null or empty")
     private final String password;
 }

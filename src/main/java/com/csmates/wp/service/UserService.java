@@ -3,6 +3,7 @@ package com.csmates.wp.service;
 import com.csmates.wp.config.ConfirmationTokenConfig;
 import com.csmates.wp.domain.AppUser;
 import com.csmates.wp.domain.ConfirmationToken;
+import com.csmates.wp.exceptions.EmailException;
 import com.csmates.wp.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,7 +25,7 @@ public class UserService {
     public String registerUser(AppUser user) {
         Optional<AppUser> existingUser = userRepository.findByEmail(user.getEmail());
         if (existingUser.isPresent()) {
-            throw new IllegalStateException("Email already taken");
+            throw new EmailException("Email already taken");
         }
         String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
