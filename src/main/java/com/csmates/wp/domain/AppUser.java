@@ -19,7 +19,7 @@ public class AppUser implements UserDetails {
     private Long id;
 
     @NotBlank(message = "Email is mandatory")
-    @Size(min = 2, max = 24)
+    @Size(min = 3, max = 400)
     private String email;
 
     @CreationTimestamp
@@ -27,11 +27,11 @@ public class AppUser implements UserDetails {
 
     // aka nickname
     @NotBlank(message = "Username is mandatory")
-    @Size(min = 2, max = 24)
+    @Size(min = 5, max = 24)
     private String username;
 
     @NotBlank(message = "Password is mandatory")
-    @Size(min = 2, max = 24)
+    @Size(min = 7, max = 100)
     private String password;
 
     @ManyToOne

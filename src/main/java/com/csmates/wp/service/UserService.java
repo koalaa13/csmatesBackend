@@ -4,7 +4,7 @@ import com.csmates.wp.config.ConfirmationTokenConfig;
 import com.csmates.wp.domain.AppUser;
 import com.csmates.wp.domain.ConfirmationToken;
 import com.csmates.wp.exceptions.EmailException;
-import com.csmates.wp.repository.UserRepository;
+import com.csmates.wp.repository.AppUserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,19 +17,19 @@ import java.util.UUID;
 @Service
 @AllArgsConstructor
 public class UserService {
-    private final UserRepository userRepository;
+    private final AppUserRepository appUserRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
     private final ConfirmationTokenConfig confirmationTokenConfig;
 
     public String registerUser(AppUser user) {
-        Optional<AppUser> existingUser = userRepository.findByEmail(user.getEmail());
+        Optional<AppUser> existingUser = appUserRepository.findByEmail(user.getEmail());
         if (existingUser.isPresent()) {
             throw new EmailException("Email already taken");
         }
         String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
-        userRepository.save(user);
+        appUserRepository.save(user);
 
 
         String token = UUID.randomUUID().toString();
@@ -46,10 +46,10 @@ public class UserService {
     }
 
     public void enableUser(String email) {
-        userRepository.enableAppUser(email);
+        appUserRepository.enableAppUser(email);
     }
 
     public List<AppUser> getAllUsers() {
-        return userRepository.findAll();
+        return appUserRepository.findAll();
     }
 }
