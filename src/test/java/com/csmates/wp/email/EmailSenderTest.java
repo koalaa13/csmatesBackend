@@ -18,7 +18,6 @@ import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-// TODO this test uses not in-memory database, it must use h2 database
 @SpringBootTest
 class EmailSenderTest {
     @RegisterExtension
