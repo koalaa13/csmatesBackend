@@ -1,5 +1,10 @@
 package com.csmates.wp.domain;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,7 +15,12 @@ import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Objects;
 
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class AppUser implements UserDetails {
@@ -41,17 +51,10 @@ public class AppUser implements UserDetails {
     private Boolean locked = false;
     private Boolean enabled = false;
 
-    public AppUser() {
-    }
-
     public AppUser(String email, String username, String password) {
         this.email = email;
         this.username = username;
         this.password = password;
-    }
-
-    public String getUsername() {
-        return username;
     }
 
     @Override
@@ -79,63 +82,16 @@ public class AppUser implements UserDetails {
         return Collections.emptyList();
     }
 
-    public Team getTeam() {
-        return team;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        AppUser appUser = (AppUser) o;
+        return Objects.equals(id, appUser.id);
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
-    }
-
-    public Boolean getLocked() {
-        return locked;
-    }
-
-    public void setLocked(Boolean locked) {
-        this.locked = locked;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Date getCreationTime() {
-        return creationTime;
-    }
-
-    public void setCreationTime(Date creationTime) {
-        this.creationTime = creationTime;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    @Override
+    public int hashCode() {
+        return 0;
     }
 }
