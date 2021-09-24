@@ -1,25 +1,22 @@
 package com.csmates.wp.repository;
 
 import com.csmates.wp.domain.AppUser;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.persistence.PersistenceException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(SpringRunner.class)
 @DataJpaTest
 public class AppUserRepositoryTest {
     @Autowired
     private TestEntityManager entityManager;
 
     @Autowired
-    private AppUserRepository appUserRepository;
+    private AppUserRepository repository;
 
     @Test
     public void saveAndGetUserTest() {
@@ -35,7 +32,7 @@ public class AppUserRepositoryTest {
         entityManager.persist(appUser);
         assertDoesNotThrow(() -> entityManager.flush());
 
-        var foundUser = appUserRepository.findByEmail(email);
+        var foundUser = repository.findByEmail(email);
         assertTrue(foundUser.isPresent());
         assertEquals(email, foundUser.get().getEmail());
         assertEquals(username, foundUser.get().getUsername());
@@ -80,7 +77,7 @@ public class AppUserRepositoryTest {
         entityManager.persist(appUser2);
         assertDoesNotThrow(() -> entityManager.flush());
 
-        var foundUsers = appUserRepository.findByUsername(username);
+        var foundUsers = repository.findByUsername(username);
         assertEquals(2, foundUsers.size());
         assertEquals(appUser1, foundUsers.get(0));
         assertEquals(appUser2, foundUsers.get(1));
@@ -100,15 +97,15 @@ public class AppUserRepositoryTest {
         entityManager.persist(appUser);
         assertDoesNotThrow(() -> entityManager.flush());
 
-        var foundUser = appUserRepository.findByEmail(email);
+        var foundUser = repository.findByEmail(email);
         assertTrue(foundUser.isPresent());
         assertEquals(email, foundUser.get().getEmail());
         assertEquals(username, foundUser.get().getUsername());
         assertEquals(password, foundUser.get().getPassword());
         assertFalse(foundUser.get().getEnabled()); // by default user is not enabled because of email confirmation
 
-        assertEquals(1, appUserRepository.enableAppUser(email));
-        foundUser = appUserRepository.findByEmail(email);
+        assertEquals(1, repository.enableAppUser(email));
+        foundUser = repository.findByEmail(email);
         assertTrue(foundUser.isPresent());
         assertEquals(email, foundUser.get().getEmail());
         assertEquals(username, foundUser.get().getUsername());

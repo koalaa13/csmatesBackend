@@ -1,6 +1,5 @@
 package com.csmates.wp.validators;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -10,27 +9,22 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class EmailValidatorTest {
-    private static EmailValidator validator;
-
-    @BeforeAll
-    static void beforeAll() {
-        validator = new EmailValidator();
-    }
+    private static final EmailValidator validator = new EmailValidator();
 
     @Test
-    void simpleValidEmailTest() {
+    public void simpleValidEmailTest() {
         String validEmail = "darkness@mail.ru";
         assertTrue(validator.test(validEmail));
     }
 
     @Test
-    void emailWithoutAtSignTest() {
+    public void emailWithoutAtSignTest() {
         String invalidEmail = "darkness";
         assertFalse(validator.test(invalidEmail));
     }
 
     @Test
-    void differentEmails() {
+    public void differentEmails() {
         List<String> validEmails = new ArrayList<>();
         validEmails.add("user@domain.com");
         validEmails.add("user@domain.co.in");
